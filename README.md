@@ -1,4 +1,4 @@
-# FakeBuster
+# ProductDetection
 
 ## Description
 FakeBuster is a decentralized application that uses QR codes to store product details. These details are stored in blocks of data, ensuring that the data cannot be modified. This approach maintains the transparency of the supply chain.
