@@ -1,154 +1,65 @@
-     .d88888b.  8888888b.  d8b
-    d88P" "Y88b 888   Y88b Y8P
-    888     888 888    888
-    888     888 888   d88P 888  .d88b.  888  888 .d8888b
-    888     888 8888888P"  888 d88""88b 888  888 88K
-    888 Y8b 888 888 T88b   888 888  888 888  888 "Y8888b.
-    Y88b.Y8b88P 888  T88b  888 Y88..88P Y88b 888      X88
-     "Y888888"  888   T88b 888  "Y88P"   "Y88888  88888P'
-           Y8b
+# FakeBuster
 
-[QRious](https://github.com/neocotic/qrious) is a pure JavaScript library for generating QR codes using HTML5 canvas.
+## Description
+FakeBuster is a decentralized application that uses QR codes to store product details. These details are stored in blocks of data, ensuring that the data cannot be modified. This approach maintains the transparency of the supply chain.
 
-[![Chat](https://img.shields.io/gitter/room/neocotic/qrious.svg?style=flat-square)](https://gitter.im/neocotic/qrious)
-[![Demo](https://img.shields.io/badge/demo-live-brightgreen.svg?style=flat-square)](https://codepen.io/neocotic/pen/YQzmBm)
-[![Dev Dependency Status](https://img.shields.io/david/dev/neocotic/qrious.svg?style=flat-square)](https://david-dm.org/neocotic/qrious?type=dev)
-[![License](https://img.shields.io/npm/l/qrious.svg?style=flat-square)](https://github.com/neocotic/qrious/blob/master/LICENSE.md)
-[![Release](https://img.shields.io/npm/v/qrious.svg?style=flat-square)](https://www.npmjs.com/package/qrious)
+### Data Flow
+![Data Flow](https://imgur.com/VGIPtDU.png)
 
+### Why blockchain? <a name="why_blockchain"></a>
++ Unlike a normal database, Blockchain has a non-destructive (immutable) way to track data changes over time. This means that data is not editable rather, whenever updates are made, a new block is added to the “block-chain”. This helps track historical data (authenticity and owner data) of a product.
++ Given the amount of data to be dealt with (large amount of products being developed), if you have to keep track of all of them, it is better to have a decentralized and distributed network of nodes so that no entity can tamper with the product data and we also obtain 100% up time.
++ Transparent nature of the Blockchain helps avoid [parallel trade](https://en.wikipedia.org/wiki/Parallel_import).
++ Using Blockchain, authenticity can be checked and ownership of a product can be transferred _decades_ from now; even if the product is discontinued.
 
+## Features
+- **Decentralized Storage:** Data is stored in a decentralized manner, ensuring security and immutability.
+- **QR Code Integration:** Each product is associated with a QR code that stores its details.
+- **Supply Chain Transparency:** The system ensures transparency in the supply chain by preventing data modification.
+- **User-friendly Interface:** Easy-to-use interface for adding and retrieving product details.
+- **Secure:** Utilizes blockchain technology to ensure data integrity and security.
+- **Scalable:** Designed to handle a large number of products and transactions efficiently.
 
-## Examples
+## Installation
+To install and run FakeBuster locally, follow these steps:
+1. **Clone the repository:**
+    ```bash
+    git clone https://github.com/priyanshix/FakeBuster.git
+    ```
 
-``` html
-<!DOCTYPE html>
-<html>
-  <body>
-    <canvas id="qr"></canvas>
+2. **Navigate to the project directory:**
+    ```bash
+    cd FakeBuster
+    ```
 
-    <script src="/path/to/qrious.js"></script>
-    <script>
-      (function() {
-        var qr = new QRious({
-          element: document.getElementById('qr'),
-          value: 'https://github.com/neocotic/qrious'
-        });
-      })();
-    </script>
-  </body>
-</html>
-```
+3. **Set up XAMPP:**
+    - Download and install [XAMPP](https://www.apachefriends.org/index.html).
+    - Start the Apache and MySQL services from the XAMPP control panel.
 
-Open up `demo.html` in your browser to play around a bit.
+4. **Configure the database:**
+    - Open your web browser and go to `http://localhost/phpmyadmin`.
+    - Create a new database named `fakebuster`.
+    - Import the database schema from the `database` folder in the project directory into the `fakebuster` database.
 
-## API
+5. **Move the project to the XAMPP directory:**
+    - Copy the project files to the `htdocs` directory in your XAMPP installation folder. Typically, this would be `C:/xampp/htdocs/`.
 
-Simply create an instance of `QRious` and you've done most of the work. You can control many aspects of the QR code
-using the following fields on your instance:
+6. **Update the database configuration:**
+    - Open the `config.php` file in the project directory.
+    - Update the database connection settings to match your XAMPP setup:
+      ```php
+      <?php
+      $servername = "localhost";
+      $username = "root";
+      $password = "";
+      $dbname = "fakebuster";
+      ?>
+      ```
 
-| Field           | Type    | Description                                        | Default       | Read Only |
-| --------------- | ------- | -------------------------------------------------- | ------------- | --------- |
-| background      | String  | Background color of the QR code                    | `"white"`     | No        |
-| backgroundAlpha | Number  | Background alpha of the QR code                    | `1.0`         | No        |
-| element         | Element | Element to render the QR code                      | `<canvas>`    | Yes       |
-| foreground      | String  | Foreground color of the QR code                    | `"black"`     | No        |
-| foregroundAlpha | Number  | Foreground alpha of the QR code                    | `1.0`         | No        |
-| level           | String  | Error correction level of the QR code (L, M, Q, H) | `"L"`         | No        |
-| mime            | String  | MIME type used to render the image for the QR code | `"image/png"` | No        |
-| padding         | Number  | Padding for the QR code (pixels)                   | `null` (auto) | No        |
-| size            | Number  | Size of the QR code (pixels)                       | `100`         | No        |
-| value           | String  | Value encoded within the QR code                   | `""`          | No        |
+## Usage
+1. **Start the application:**
+    - Open your web browser and navigate to `http://localhost/FakeBuster`.
 
-``` javascript
-var qr = new QRious();
-qr.background = 'green';
-qr.backgroundAlpha = 0.8;
-qr.foreground = 'blue';
-qr.foregroundAlpha = 0.8;
-qr.level = 'H';
-qr.padding = 25;
-qr.size = 500;
-qr.value = 'https://github.com/neocotic/qrious';
-```
-
-The QR code will automatically update when you change one of these fields, so be wary when you plan on changing lots of
-fields at the same time. You probably want to make a single call to `set(options)` instead as it will only update the QR
-code once:
-
-``` javascript
-var qr = new QRious();
-qr.set({
-  background: 'green',
-  backgroundAlpha: 0.8,
-  foreground: 'blue',
-  foregroundAlpha: 0.8,
-  level: 'H',
-  padding: 25,
-  size: 500,
-  value: 'https://github.com/neocotic/qrious'
-});
-```
-
-These can also be passed as options to the constructor itself:
-
-``` javascript
-var qr = new QRious({
-  background: 'green',
-  backgroundAlpha: 0.8,
-  foreground: 'blue',
-  foregroundAlpha: 0.8,
-  level: 'H',
-  padding: 25,
-  size: 500,
-  value: 'https://github.com/neocotic/qrious'
-});
-```
-
-You can also pass in an `element` option to the constructor which can be used to generate the QR code using an existing
-DOM element, which is the only time that you can specify read only options. `element` must either be a `<canvas>`
-element or an `<img>` element which can then be accessed via the `canvas` or `image` fields on the instance
-respectively. An element will be created for whichever one isn't provided or for both if no `element` is specified,
-which means that they can be appended to the document at a later time.
-
-``` javascript
-var qr = new QRious({
-  element: document.querySelector('canvas'),
-  value: 'https://github.com/neocotic/qrious'
-});
-
-qr.canvas.parentNode.appendChild(qr.image);
-```
-
-A reference to the `QRious` instance is also stored on both of the elements for convenience.
-
-``` javascript
-var canvas = document.querySelector('canvas');
-var qr = new QRious({
-  element: canvas,
-  value: 'https://github.com/neocotic/qrious'
-});
-
-qr === canvas.qrious;
-//=> true
-```
-
-### `toDataURL([mime])`
-
-Generates a base64 encoded data URI for the QR code. If you don't specify a MIME type, it will default to the one
-passed to the constructor as an option or the default value for the `mime` option.
-
-``` javascript
-var qr = new QRious({
-  value: 'https://github.com/neocotic/qrious'
-});
-
-qr.toDataURL();
-//=> "data:image/png;base64,iVBOR...AIpqDnseH86KAAAAAElFTkSuQmCC"
-qr.toDataURL('image/jpeg');
-//=> "data:image/jpeg;base64,/9j/...xqAqIqgKFAAAAAq3RRQAUUUUAf/Z"
-```
-
-
-
-
+2. **Access the application:**
+    - Use the provided interface to add and retrieve product details using QR codes.
 
